@@ -5,10 +5,13 @@ import BillItem from '@/components/BillItem';
 import PopupType from '@/components/PopupType';
 import PopupDate from '@/components/PopupDate';
 import { get, REFRESH_STATE, LOAD_STATE } from '@/utils';
+import CustomIcon from '@/components/CustomIcon';
+import PopupAddBill from '@/components/PopupAddBill';
 
 import s from './style.module.less';
 
 const Home = () => {
+	const addRef = useRef();
 	const typeRef = useRef(); // 账单类型 ref
 	const monthRef = useRef(); // 月份筛选 ref
 	const [totalExpense, setTotalExpense] = useState(0); // 总支出
@@ -20,6 +23,10 @@ const Home = () => {
 	const [totalPage, setTotalPage] = useState(0); // 分页总数
 	const [refreshing, setRefreshing] = useState(REFRESH_STATE.normal); // 下拉刷新状态
 	const [loading, setLoading] = useState(LOAD_STATE.normal); // 上拉加载状态
+
+	const addToggle = () => {
+		addRef.current && addRef.current.show();
+	};
 
 	useEffect(() => {
 		getBillList(); // 初始化
@@ -131,6 +138,10 @@ const Home = () => {
 						))}
 					</Pull>
 				) : null}
+			</div>
+			<PopupAddBill ref={addRef} />
+			<div className={s.add} onClick={addToggle}>
+				<CustomIcon type="tianjia" />
 			</div>
 			<PopupType ref={typeRef} onSelect={select} />
 			<PopupDate ref={monthRef} mode="month" onSelect={selectMonth} />
