@@ -4,9 +4,11 @@ import { Toast } from 'zarm';
 const MODE = import.meta.env.MODE; // 环境变量
 
 axios.defaults.baseURL =
-	MODE == 'development' ? '/api' : 'http://api.chennick.wang';
+	MODE == 'development'
+		? 'http://api.chennick.wang'
+		: 'http://127.0.0.1:7001';
 axios.defaults.withCredentials = true;
-axios.defaults.headers['X-Request-With'] = 'XMLHttpRequest';
+axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers['Authorization'] = `${
 	localStorage.getItem('token') || null
 }`;
@@ -22,8 +24,10 @@ axios.interceptors.response.use((res) => {
 		if (res.data.code == 401) {
 			window.location.href = '/login';
 		}
-		return res.data;
+		return Promise.reject(res.data);
 	}
+
+	return res.data;
 });
 
 export default axios;
