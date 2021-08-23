@@ -30,11 +30,11 @@ const Data = () => {
   // 获取数据详情
   const getData = async () => {
     const { data } = await get(`/api/bill/data?date=${currentMonth}`);
-  
+    console.log('data',data);
     // 总收支
     setTotalExpense(data.total_expense);
     setTotalIncome(data.total_income);
-  
+    console.log('ex',data.total_expense);
     // 过滤支出和收入
     const expense_data = data.total_data.filter(item => item.pay_type == 1).sort((a, b) => b.number - a.number); // 过滤出账单类型为支出的项
     const income_data = data.total_data.filter(item => item.pay_type == 2).sort((a, b) => b.number - a.number); // 过滤出账单类型为收入的项

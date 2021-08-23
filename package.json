@@ -10,6 +10,7 @@
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
     "dayjs": "^1.10.5",
+    "egg-cors": "^2.2.3",
     "lib-flexible": "^0.3.2",
     "postcss-pxtorem": "^6.0.0",
     "query-string": "^7.0.1",
